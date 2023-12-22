@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bouncing Element</title>
+  <style>
+    body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: none;
+
+}
+
+.box {
+  background-color: #006699;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh; /* Utilise 100% de la hauteur de l'écran */
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+
+.box h1 {
+  text-align: center;
+  font-size: 2em;
+  padding: 10px;
+  margin: 0;
+  font-family: 'comic sans ms';
+}
+
+.mouche {
+  display: block;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  -webkit-animation: moveX 20s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate, moveY 3.4s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate;
+  -moz-animation: moveX 20s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate, moveY 3.4s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate;
+  -o-animation: moveX 20s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate, moveY 3.4s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate;
+  animation: moveX 20s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate, moveY 3.4s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.tap{
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+@-webkit-keyframes moveX {
+  from { left: 0; } to { left: calc(100% - 150px); }
+}
+@-moz-keyframes moveX {
+    from { left: 0; } to { left: calc(100% - 150px); }
+}
+@-o-keyframes moveX {
+    from { left: 0; } to { left: calc(100% - 150px); }
+}
+@keyframes moveX {
+    from { left: 0; } to { left: calc(100% - 150px); }
+}
+
+@-webkit-keyframes moveY {
+  from { top: 0; } to { top: calc(100% - 150px); }
+}
+@-moz-keyframes moveY {
+    from { top: 0; } to { top: calc(100% - 150px); }
+}
+@-o-keyframes moveY {
+    from { top: 0; } to { top: calc(100% - 150px); }
+}
+@keyframes moveY {
+    from { top: 0; } to { top: calc(100% - 150px); }
+}
+
+  </style>
+</head>
+<body>
+  <div class="box">
+      <h1>Score : 0</h1>
+        <img src="./mouche.png" class="mouche" alt="bzz">
+        <img src="./cursor.png" class="tap" alt="bzz">
+    </div>
+
+  <script>
+    var speed = 10;
+    var score = 0;
+    document.querySelector('.box img').addEventListener('click', slap);
+    function slap() {
+        speed *= 0.75 ;
+        score++;
+        var mouche = document.querySelector('.box img');
+        mouche.style.animation = "moveX " + speed + "s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate, moveY "+(3.4*(speed*0.9))+"s cubic-bezier(0.64, 0.01, 0.3, 1.01) 0s infinite alternate";
+        document.querySelector('h1').innerHTML = "Score : " + score;
+    }
+
+    const positionElement = (e)=> {
+    var mouseY = e.clientY-100;
+    var mouseX = e.clientX-10;
+    
+    
+
+    document.querySelector('.tap').style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+  
+  }
+
+  window.addEventListener('mousemove', positionElement)
+  </script>
+</body>
+</html>
